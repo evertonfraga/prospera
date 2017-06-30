@@ -19,7 +19,6 @@ contract ProsperaToken {
     /* This notifies clients about the amount burnt */
     event Burn(address indexed from, uint256 value);
 
-
     function burn(uint256 _value) returns (bool success) {
         if (balanceOf[msg.sender] < _value) throw;                 // Check if the sender has enough
         balanceOf[msg.sender] -= _value;                          // Subtract from the sender
