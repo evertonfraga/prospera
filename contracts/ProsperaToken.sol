@@ -12,10 +12,11 @@ Machine-based, rapid creation of many tokens would not necessarily need these ex
 .*/
 
 import "./StandardToken.sol";
+import "./Owned.sol";
 
-pragma solidity ^0.4.6;
+pragma solidity ^0.4.11;
 
-contract ProsperaToken is StandardToken {
+contract ProsperaToken is StandardToken, Owned {
 
     function () {
         //if ether is sent to this address, send it back.
@@ -35,7 +36,6 @@ contract ProsperaToken is StandardToken {
     string public symbol;                 //An identifier: eg SBX
     string public version = '0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
-    bool
 
     function ProsperaToken(
         uint256 _initialAmount,
@@ -63,32 +63,42 @@ contract ProsperaToken is StandardToken {
     }
 
 
-
-
-
-
-
     /* Batch token transfer. Used by contract creator to distribute initial coins to holders */
     function batchTransfer(address[] _recipients, uint256[] _values) returns (bool success) {
       if ((_recipients.length == 0) || (_recipients.length != _values.length)) throw;
 
-      for(i = 0; i < _recipients.length; i += 1) {
-        transfer(_recipients[i], _values[i]);
+      for(uint8 i = 0; i < _recipients.length; i += 1) {
+        if (!transfer(_recipients[i], _values[i])) throw;
       }
+      return true;
     }
 
 
 
+    address minterContract;
+    event Mint(address indexed _account, uint256 _amount);
+    
+    modifier onlyMinter {
+        if (msg.sender != minterContract) throw;
+         _;
+    }
 
+    function setMinter (address newMinter) onlyOwner returns (bool success) {
+      minterContract = newMinter;
+      return true;
+    }
 
+    function mintToAccount(address _account, uint256 _amount) onlyMinter returns (bool success) {
+        // Checks for variable overflow
+        if (balances[_account] + _amount < balances[_account]) throw;
+        balances[_account] += _amount;
+        Mint(_account, _amount);
+        return true;
+    }
 
-
-
-
-
-
-
-
-
+    function incrementTotalSupply(uint256 _incrementValue) onlyMinter returns (bool success) {
+        totalSupply += _incrementValue;
+        return true;
+    }
 
 }

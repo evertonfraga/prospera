@@ -1,8 +1,8 @@
-var ConvertLib = artifacts.require("./ConvertLib.sol");
-var MetaCoin = artifacts.require("./MetaCoin.sol");
+var ProsperaToken = artifacts.require("./ProsperaToken.sol");
+var Minter = artifacts.require("./Minter.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(ConvertLib);
-  deployer.link(ConvertLib, MetaCoin);
-  deployer.deploy(MetaCoin);
+  deployer.deploy(ProsperaToken);
+  deployer.link(ProsperaToken, Minter);
+  deployer.deploy(Minter);
 };
