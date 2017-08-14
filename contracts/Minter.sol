@@ -1,23 +1,19 @@
 pragma solidity ^0.4.11;
 
 import "./ProsperaToken.sol";
+import "./Owned.sol";
 
-contract Minter {
+contract Minter is Owned {
 
-  uint256 lastMintingTime = 0;
-  uint256 lastMintingAmount;
-  address prosperaTokenAddress;
-  ProsperaToken prosperaToken;
+  uint256 public lastMintingTime = 0;
+  uint256 public lastMintingAmount;
+  address public prosperaTokenAddress;
+  ProsperaToken public prosperaToken;
 
   modifier allowedMinting() {
     if (block.timestamp >= lastMintingTime + 30 days) {
       _;
     }
-  }
-
-  modifier onlyOwnerContract {
-    if (msg.sender != prosperaTokenAddress) throw;
-    _;
   }
 
   function Minter (uint256 _lastMintingAmount, address _ownerContract) {
@@ -27,6 +23,7 @@ contract Minter {
   }
 
   // increases 2.95% from last minting
+  // TODO: add constant modifier
   function calculateMintAmount() returns (uint256 amount){
    return lastMintingAmount * 10295 / 10000;
   }
@@ -37,7 +34,7 @@ contract Minter {
     prosperaToken.incrementTotalSupply(_mintedAmount);
   }
 
-  function mint() allowedMinting returns (bool success) {
+  function mint() allowedMinting onlyOwner returns (bool success) {
     uint256 value = calculateMintAmount();
     prosperaToken.mintToAccount(msg.sender, value);
     updateMintingStatus(value);

@@ -318,7 +318,6 @@ contract("ProsperaToken", function(accounts) {
       prosperaToken = result;
       return prosperaToken.owner.call();
     }).then((result) => {
-      console.log('result', result);
       assert.strictEqual(result, accounts[0]);
       done();
     }).catch(done);
@@ -329,8 +328,6 @@ contract("ProsperaToken", function(accounts) {
     var minter = null;
     ProsperaToken.new(10000, 'Prosper', 1, 'PRS', {from: accounts[0]}).then((result) => {
       prosperaToken = result;
-      console.log('account 0 ', accounts[0]);
-      console.log('account 1 ', accounts[1]);
       return prosperaToken.transferOwnership.call(accounts[1], { from: accounts[0] });
     }).then((result) => {
       assert.strictEqual(result, accounts[1]);
@@ -346,15 +343,7 @@ contract("ProsperaToken", function(accounts) {
   //     return prosperaToken.transferOwnership.call(accounts[1], { from: accounts[2] });
   //   }).catch((result) => done()).catch(done);
   // });
-  //
-  // it('Owner: does not allow to transfer ownership to 0x0', (done) => {
-  //   var prosperaToken = null;
-  //   var minter = null;
-  //   ProsperaToken.new(10000, 'Prosper', 1, 'PRS', {from: accounts[0]}).then((result) => {
-  //     prosperaToken = result;
-  //     return prosperaToken.transferOwnership.call(0x0, { from: accounts[0] });
-  //   }).catch((result) => done()).catch(done);
-  // });
+
 
 // Minter contract
   it('Minter: setting minter contract', (done) => {
@@ -362,18 +351,41 @@ contract("ProsperaToken", function(accounts) {
     var minter = null;
     ProsperaToken.new(10000, 'Prosper', 1, 'PRS', {from: accounts[0]}).then((result) => {
       prosperaToken = result;
-      console.log('prospera', result.address);
       return Minter.new(30, prosperaToken.address, {from: accounts[0]});
     }).then((result) => {
-      console.log('minter', result.address);
       minter = result;
-
+      return minter.prosperaToken.call();
     }).then((result) => {
+      assert.strictEqual(result, prosperaToken.address);
       done();
-    });
+    }).catch(done);
   });
 
+  it('Minter: should create new tokens, following 2.95% rule', (done) => {
+    var prosperaToken = null;
+    var minter = null;
+    ProsperaToken.new(700e3, 'Prosper', 3, 'PRS', {from: accounts[0]}).then((result) => {
+      prosperaToken = result;
+      return Minter.new(100e3, prosperaToken.address, {from: accounts[0]});
+    }).then((result) => {
+      minter = result;
+      return prosperaToken.setMinter(minter.address);
+    }).then((result) => {
+      return minter.mint();
+    }).then((result) => {
+      return prosperaToken.totalSupply.call({from: accounts[0]});
+    }).then((result) => {
+      console.log('Last total supply', result.c[0]);
+      assert.strictEqual(result.c[0], 700e3 + 100e3 * 1.0295);
+      return minter.lastMintingAmount.call();
+    }).then((result) => {
+      console.log('Last minting amount', result.c[0]);
+      assert.strictEqual(result.c[0], Math.floor(100e3 * 1.0295));
+      done();
+    }).catch(done);
+  });
 
-
+// Basic disbursement
+  it('Disbursement: receive and tracks transfers', (done) => { done(); });
 
 });

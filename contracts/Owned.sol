@@ -12,8 +12,7 @@ contract Owned {
         _;
     }
 
-    function transferOwnership(address newOwner) onlyOwner returns (address owner) {
-        if (newOwner == 0x0) throw;
+    function transferOwnership(address newOwner) onlyOwner returns (address _owner) {
         owner = newOwner;
         return owner;
     }
