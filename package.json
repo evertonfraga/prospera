@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/evertonfraga/prospera/issues"
   },
-  "homepage": "https://github.com/evertonfraga/prospera#readme"
+  "homepage": "https://github.com/evertonfraga/prospera#readme",
+  "dependencies": {
+    "got": "^7.1.0"
+  }
 }
