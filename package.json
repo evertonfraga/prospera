@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/evertonfraga/prospera#readme",
   "dependencies": {
-    "got": "^7.1.0"
+    "cheerio": "^1.0.0-rc.2",
+    "got": "^7.1.0",
+    "web3": "^1.0.0-beta.24"
   }
 }
