@@ -18,14 +18,11 @@ const accountForBalance = (account, value) => {
 
 const incomingOnly = tx => tx.from != pcdAddress;
 
-console.log(apiEndpoint(pcdAddress, startBlock, endBlock, apiKey));
-
-got(apiEndpoint(pcdAddress, startBlock, endBlock, apiKey)).then(response => {
-  JSON.parse(response.body).result.filter(incomingOnly).map(tx => {
+got(apiEndpoint(pcdAddress, startBlock, endBlock, apiKey), {json: true}).then(response => {
+  response.body.result.filter(incomingOnly).map(tx => {
     accountForBalance(tx.from, tx.value);
   });
 
-console.log(balances);
   Object.keys(balances).map(k => {
     console.log(`${k}\t${balances[k]}`);
   });
