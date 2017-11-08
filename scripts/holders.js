@@ -38,16 +38,15 @@ got(endpoint).then((result) => {
 
   const totalSupplyFlagIndex = process.argv.indexOf('--totalSupply');
   const totalEthFlagIndex = process.argv.indexOf('--totalEth');
-
   if (totalSupplyFlagIndex != -1 && totalEthFlagIndex != -1) {
-    calculateEthDistribution(balances);
+    calculateEthDistribution(balances, totalSupplyFlagIndex, totalEthFlagIndex);
   } else {
     displayTokenBalances(balances);
   }
 
 });
 
-const calculateEthDistribution = () => {
+const calculateEthDistribution = (balances, totalSupplyFlagIndex, totalEthFlagIndex) => {
   const estimatedCosts = Object.keys(balances).length * 5e15; // 0.005 ETH por conta
   const totalSupply = parseInt(process.argv[totalSupplyFlagIndex + 1], 10);
   const totalEth = parseInt(process.argv[totalEthFlagIndex + 1], 10) - estimatedCosts;
