@@ -47,7 +47,7 @@ got(endpoint).then((result) => {
 });
 
 const calculateEthDistribution = (balances, totalSupplyFlagIndex, totalEthFlagIndex) => {
-  const estimatedCosts = Object.keys(balances).length * 5e15; // 0.005 ETH por conta
+  const estimatedCosts = Object.keys(balances).length * 2e15; // 0.002 ETH por conta
   const totalSupply = parseInt(process.argv[totalSupplyFlagIndex + 1], 10);
   const totalEth = parseInt(process.argv[totalEthFlagIndex + 1], 10) - estimatedCosts;
 
