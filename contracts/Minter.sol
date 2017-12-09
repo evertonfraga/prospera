@@ -1,3 +1,8 @@
+/*
+Published at:
+0xAfb1ae4D14e842CacFE44c1911a0b4542D54595c
+*/
+
 pragma solidity ^0.4.11;
 
 import "./ProsperaToken.sol";

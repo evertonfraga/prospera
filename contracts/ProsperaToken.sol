@@ -1,4 +1,7 @@
 /*
+Published at:
+0x0c04d4f331da8df75f9e2e271e3f3f1494c66c36
+
 This Token Contract implements the standard token functionality (https://github.com/ethereum/EIPs/issues/20) as well as the following OPTIONAL extras intended for use by humans.
 
 In other words. This is intended for deployment in something like a Token Factory or Mist wallet, and then used by humans.
