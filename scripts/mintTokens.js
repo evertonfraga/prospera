@@ -10,6 +10,11 @@ Example:
   node mintTokens.js deposits.txt
 */
 
+// TODO: Blacklist disbursement address
+// TODO: Blacklist disbursement address
+// TODO: Blacklist disbursement address
+
+
 const fs = require('fs');
 
 const lastMintingAmount = 35103904887; // TODO: grab from network
@@ -39,14 +44,17 @@ const totalDeposited = Object.values(balances).reduce((prev, value) => prev + va
 // console.log(`Total deposited\t${totalDeposited}`);
 // console.log(`Minting amount \t${lastMintingAmount}`);
 
+console.log("\n\nPlain format:\n");
 Object.keys(balances).map(k => {
   prspToReceive[k] = parseInt(balances[k] / totalDeposited * lastMintingAmount, 10);
   console.log(`${k}\t${prspToReceive[k]}`);
 });
 
+console.log("\n\nConsole script format: \n");
 Object.keys(balances).map(k => {
   console.log(`ProsperInstance.transfer('${k}', ${prspToReceive[k]}, extraParams, cb);`);
 });
 
-console.log(`["${Object.keys(prspToReceive).join('", "')}"]`);
+console.log("\n\nAs contract parameters:\n");
+console.log(`["${Object.keys(prspToReceive).join('", "')}"]\n`);
 console.log(`[${Object.values(prspToReceive).join(',')}]`);
