@@ -28,19 +28,5 @@ Tarefas
 
 
 
-
-
 ### Antigo
 - Permitir splitFunds via depósito direto
-
-
-
-- Pseudo-introspection for ERC20 https://github.com/ethereum/EIPs/issues/165
-- investigar os padroes e exchanges que podem aceitar o token
-- Auditoria sobre código: Piper, Martin Swende, Cure53
-- Decentralized market: DELEGATE CALL
-
-
-
-
-https://ethereum.stackexchange.com/questions/5715/relaying-a-contract-call-from-contract-a-to-contract-c-via-contract-b
