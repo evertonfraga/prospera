@@ -10,9 +10,9 @@ Example:
   node mintTokens.js deposits.txt
 */
 
-// TODO: Blacklist disbursement address
-// TODO: Blacklist disbursement address
-// TODO: Blacklist disbursement address
+// TODO: Blacklist disbursement address 0x376f0eb80530ab03be79d34ea2f65efee8bf4e69
+// TODO: Blacklist disbursement address 0x376f0eb80530ab03be79d34ea2f65efee8bf4e69
+// TODO: Blacklist disbursement address 0x376f0eb80530ab03be79d34ea2f65efee8bf4e69
 
 
 const fs = require('fs');

@@ -4,8 +4,8 @@ const got = require('got');
 const pcdAddress = '0xa4E23286C06208645f52c57A6eF5a510e87A6d76'.toLowerCase();
 const apiKey = process.env.ETHERSCAN_API_KEY;
 const prspPublishedBlock = 3965050;
-const startBlock = 	4473116 + 1; // TODO: override from argv
-const endBlock = 4657930 + 1; // TODO: override from argv
+const startBlock = 4701006 + 1; // TODO: override from argv
+const endBlock = 4838301 + 1; // TODO: override from argv
 
 const txListEndpoint = (pcdAddress, startBlock, endBlock, apiKey) => `http://api.etherscan.io/api?module=account&action=txlist&address=${pcdAddress}&startblock=${startBlock}&endblock=${endBlock}&sort=desc&apikey=${apiKey}`;
 const internalTxListEndpoint = (pcdAddress, startBlock, endBlock, apiKey) => `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${pcdAddress}&startblock=${startBlock}&endblock=${endBlock}&sort=desc&apikey=${apiKey}`;
