@@ -1,6 +1,6 @@
 /*
  Usage:
-  node holders.js --totalSupply value --totalEth value
+  node holders.js --totalSupply value
 
 */
 
@@ -8,7 +8,7 @@ const got = require('got');
 const cheerio = require('cheerio');
 const endpoint = 'http://www.prsp.me/saldos/';
 const Web3 = require('web3');
-const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+const web3 = new Web3('https://mainnet.infura.io');
 const apiKey = process.env.ETHERSCAN_API_KEY;
 
 
@@ -21,11 +21,10 @@ const tokenAbi = [ { "constant": true, "inputs": [], "name": "name", "outputs": 
 const ProsperContract = new web3.eth.Contract(tokenAbi, tokenAddress);
 
 // converts from <string>"0,123456789" to <int>123456789
-const currencyParser = (value) => {
-  return parseInt(parseFloat(value.replace(',', '.'), 10) * 1e9, 10);
-}
+const currencyParser = (value) => parseInt(parseFloat(value.replace(',', '.'), 10) * 1e9, 10);
 
 const getTokenBalance = async (address) => ProsperContract.methods.balanceOf(address).call();
+
 const getTokenBalances = (addressList) => {
   return Promise.all(addressList.map(tokenBalance));
 }
@@ -37,7 +36,8 @@ let liveBalances = {};
 
 
 got(accountBalanceEndpoint(pcdAddress, apiKey)).then((response) => {
-  pcdBalance = parseInt(JSON.parse(response.body).result);
+  pcdBalance = 1207300014792250000;
+  // pcdBalance = parseInt(JSON.parse(response.body).result);
 })
 .then(() => got(endpoint))
 .then((result) => {
