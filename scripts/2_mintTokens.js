@@ -17,7 +17,7 @@ Example:
 
 const fs = require('fs');
 
-const lastMintingAmount = 37205584448; // TODO: grab from network
+const lastMintingAmount = 38303149189; // TODO: grab from network
 
 const filePathIndex = process.argv;
 const filePath = process.argv[2];
@@ -56,5 +56,5 @@ Object.keys(balances).map(k => {
 });
 
 console.log("\n\nAs contract parameters:\n");
-console.log(`["${Object.keys(prspToReceive).join('", "')}"]\n`);
+console.log(`["${Object.keys(prspToReceive).join('", "')}"],`);
 console.log(`[${Object.values(prspToReceive).join(',')}]`);

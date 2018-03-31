@@ -20,7 +20,11 @@ const readFile = (filePath) => {
 
 const readLines = (filePath) => {
   const file = fs.readFileSync(filePath, "utf-8");
-  return file.split("\n");
+  let lines = file.split("\n");
+  if (lines[lines.length - 1] == '') {
+     lines.pop();
+  }
+  return lines;
 }
 
 
@@ -39,13 +43,14 @@ const makeChunks = (array, size) => {
 }
 
 const lines = readLines(filePath);
-// console.log(lines);
+console.log(lines[lines.length - 2]);
+console.log(`[[[${lines[lines.length - 1]}]]]`);
 
 let chunks = makeChunks(lines, 22);
 // console.log("\n\nChunks");
 // console.log(chunks);
 
-let nonce = 24;
+let nonce = 33;
 
 chunks.forEach(c => {
   let accounts = [];

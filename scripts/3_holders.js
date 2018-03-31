@@ -35,8 +35,8 @@ let liveBalances = {};
 
 
 got(accountBalanceEndpoint(pcdAddress, apiKey)).then((response) => {
-  pcdBalance = 1574697580000000000;
-  // pcdBalance = parseInt(JSON.parse(response.body).result);
+  //pcdBalance = 1574697580000000000;
+  pcdBalance = parseInt(JSON.parse(response.body).result);
 })
 .then(() => got(endpoint))
 .then((result) => {

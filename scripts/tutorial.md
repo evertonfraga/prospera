@@ -14,6 +14,10 @@ node 1_deposits.js > depositos-2018-01.txt
 Requisito: especificar variáveis `startBlock` e `endBlock`.
 
 
+## Emissão de tokens do período
+
+Executar método mint() do contrato Minter. Esta operação calcula e emite os novos PRSP do mês para a conta que administra as transferencias.
+
 ## Cálculo de PRSP a receber para contribuintes
 
 O arquivo `mintTokens.js` se vale da quantidade de PRSP da última emissão e calcula quanto cada contribuinte deve receber. Ao final ele gera o resultado em três formatos:
@@ -58,4 +62,7 @@ node 3_holders.js --totalSupply 951884209596 > holders.txt
 ```
 
 Ele salvará no arquivo `holders.txt` uma lista de endereços e valores. Tais transferências podem ser feitas manualmente, mas existem formas menos trabalhosas. Aqui contaremos com a ajuda de um smart contract já publicado na rede que auxilia a efetuar em torno de 20 transferências de ether por vez. Isso diminui a quantidade de transações de 176 para apenas 9.
+
+## Multisend
+
 
