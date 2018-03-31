@@ -1,6 +1,7 @@
 /*
 Published at:
-0xAfb1ae4D14e842CacFE44c1911a0b4542D54595c
+1. 0xAfb1ae4D14e842CacFE44c1911a0b4542D54595c
+2. 0xab705e15925d411dafc5927b7803c9da54e50334
 */
 
 pragma solidity ^0.4.11;
@@ -12,7 +13,6 @@ contract Minter is Owned {
 
   uint256 public lastMintingTime = 0;
   uint256 public lastMintingAmount;
-  address public prosperaTokenAddress;
   ProsperaToken public prosperaToken;
 
   modifier allowedMinting() {
@@ -21,15 +21,13 @@ contract Minter is Owned {
     }
   }
 
-  function Minter (uint256 _lastMintingAmount, address _ownerContract) {
+  function Minter (uint256 _lastMintingAmount, address _ownerContract) public {
     lastMintingAmount = _lastMintingAmount;
-    prosperaTokenAddress = _ownerContract;
     prosperaToken = ProsperaToken(_ownerContract);
   }
 
   // increases 2.95% from last minting
-  // TODO: add constant modifier
-  function calculateMintAmount() returns (uint256 amount){
+  function calculateMintAmount() public view returns (uint256 amount){
    return lastMintingAmount * 10295 / 10000;
   }
 
@@ -39,7 +37,7 @@ contract Minter is Owned {
     prosperaToken.incrementTotalSupply(_mintedAmount);
   }
 
-  function mint() allowedMinting onlyOwner returns (bool success) {
+  function mint() onlyOwner public returns (bool success) {
     uint256 value = calculateMintAmount();
     prosperaToken.mintToAccount(msg.sender, value);
     updateMintingStatus(value);
