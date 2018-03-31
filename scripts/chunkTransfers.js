@@ -11,7 +11,7 @@ const readFile = (filePath) => {
     let line = lines[i].split("\t");
     let account = line[0];
     let value = line[1];
-    if (account.length > 0) {
+    if (account.length > 0 && parseInt(value) != NaN) {
       balances[account] = parseInt(value);
     }
   }
@@ -39,13 +39,13 @@ const makeChunks = (array, size) => {
 }
 
 const lines = readLines(filePath);
-console.log(lines);
+// console.log(lines);
 
 let chunks = makeChunks(lines, 22);
-console.log("\n\nChunks");
-console.log(chunks);
+// console.log("\n\nChunks");
+// console.log(chunks);
 
-let nonce = 8;
+let nonce = 24;
 
 chunks.forEach(c => {
   let accounts = [];

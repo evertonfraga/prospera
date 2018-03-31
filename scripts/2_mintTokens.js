@@ -17,7 +17,7 @@ Example:
 
 const fs = require('fs');
 
-const lastMintingAmount = 35103904887; // TODO: grab from network
+const lastMintingAmount = 37205584448; // TODO: grab from network
 
 const filePathIndex = process.argv;
 const filePath = process.argv[2];
@@ -41,8 +41,8 @@ const balances = readFile(filePath);
 const prspToReceive = {};
 const totalDeposited = Object.values(balances).reduce((prev, value) => prev + value);
 
-// console.log(`Total deposited\t${totalDeposited}`);
-// console.log(`Minting amount \t${lastMintingAmount}`);
+console.log(`Total deposited\t${totalDeposited}`);
+console.log(`Minting amount \t${lastMintingAmount}`);
 
 console.log("\n\nPlain format:\n");
 Object.keys(balances).map(k => {
